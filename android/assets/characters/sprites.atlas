@@ -13,43 +13,50 @@ Skeleton Dead
   index: -1
 Skeleton Idle
   rotate: false
-  xy: 499, 2
+  xy: 516, 2
   size: 264, 32
   orig: 264, 32
   offset: 0, 0
   index: -1
 Skeleton Walk
   rotate: false
-  xy: 996, 2
+  xy: 1030, 2
   size: 286, 33
   orig: 286, 33
   offset: 0, 0
   index: -1
-SlimeA
+player_fall
   rotate: false
-  xy: 1493, 2
-  size: 256, 16
-  orig: 256, 16
+  xy: 2, 68
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+player_hurt
+  rotate: false
+  xy: 516, 68
+  size: 256, 64
+  orig: 256, 64
   offset: 0, 0
   index: -1
 player_idle
   rotate: false
-  xy: 2, 68
+  xy: 1030, 68
   size: 256, 64
   orig: 256, 64
   offset: 0, 0
   index: -1
 player_jump
   rotate: false
-  xy: 499, 68
-  size: 128, 64
-  orig: 128, 64
+  xy: 2, 134
+  size: 256, 64
+  orig: 256, 64
   offset: 0, 0
   index: -1
 player_run
   rotate: false
-  xy: 996, 68
-  size: 256, 64
-  orig: 256, 64
+  xy: 516, 134
+  size: 512, 64
+  orig: 512, 64
   offset: 0, 0
   index: -1

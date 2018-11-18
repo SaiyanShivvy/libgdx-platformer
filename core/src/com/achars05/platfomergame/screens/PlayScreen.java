@@ -9,24 +9,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static sun.audio.AudioPlayer.player;
 
 public class PlayScreen implements Screen {
 
@@ -34,6 +26,9 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
+
+    // Sprites
+    private TextureAtlas altas;
 
     // Tiled Maps Variables
     private TmxMapLoader mapLoader;
@@ -50,6 +45,9 @@ public class PlayScreen implements Screen {
 
     public PlayScreen (MainGame game){
         this.game = game;
+
+        // create atlas
+        altas = new TextureAtlas("characters/sprites.atlas");
 
         // camera to follow player through the world
         gameCam = new OrthographicCamera();
@@ -76,12 +74,16 @@ public class PlayScreen implements Screen {
         new B2WorldCreator(world, map);
 
         // create player
-        player = new Player (world);
+        player = new Player (world, this);
     }
 
     @Override
     public void show() {
 
+    }
+
+    public TextureAtlas getAltas() {
+        return altas;
     }
 
     public void handleInput(float dt) {
@@ -102,6 +104,8 @@ public class PlayScreen implements Screen {
         handleInput(dt);
 
         world.step(1/60f, 6, 2);
+
+        player.update(dt);
 
         gameCam.position.x = player.b2body.getPosition().x;
 
@@ -126,11 +130,14 @@ public class PlayScreen implements Screen {
         // render Box2DDebugLines
         b2dr.render(world, gameCam.combined);
 
-        // Set batch to draw the HUD camera
-        hud.stage.draw();
         game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
-
+        // Set batch to draw the HUD camera
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
