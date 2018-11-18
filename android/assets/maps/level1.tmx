@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="57">
+ <tileset firstgid="1" name="jungle tileset" tilewidth="16" tileheight="16" tilecount="741" columns="39">
+  <image source="jungle tileset.png" width="624" height="304"/>
+ </tileset>
+ <layer id="7" name="background" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJztwzEJAAAMA7AycfUvqSr2JZBeUlVVVVVVVVVVVVVV1ccD6Uhtrg==
+  </data>
+ </layer>
+ <layer id="2" name="foreground" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJztmEkOwjAQBMcBxPYH+BIggeAlwEPZIc+AC1tzQ6wmMfYYuqS6WJYzPRPnEBFCCCGEEEIIIaHZGpGdCV0FcU0XM+3BPhyY9+skP/90l/4pax5s++Sjn5yZDp7NoYy1CqzCGqw7mpXvufM9y0fs/dNU/6s79arOb93Fb/JJ32PM94ysWXy9pxruw20NGuavoS+2xFQr+Zxfnu+jbNryhqjHxzdQW59d0ECeZoZMmv49cfb3xFZvLLCvhJCsTPDtmMIZnMMFXMIVXMMNTI3dvhbO64i789KrM30/N0Re5tDXl7alIeq77NvDAzzCE5RExMAEFmARlhK7fUMsj8XdeaWrM30/N0Re5tDXl5GlIeq77DsDaFVXAw==
+  </data>
+ </layer>
+ <objectgroup id="5" name="groundObject" visible="0">
+  <object id="6" x="0" y="176" width="304" height="32"/>
+  <object id="7" x="336" y="176" width="304" height="32"/>
+  <object id="8" x="672" y="176" width="112" height="32"/>
+  <object id="10" x="816" y="176" width="448" height="32"/>
+  <object id="11" x="1296" y="176" width="288" height="32"/>
+  <object id="12" x="1616" y="176" width="448" height="32"/>
+  <object id="13" x="2096" y="176" width="288" height="32"/>
+  <object id="14" x="2416" y="176" width="288" height="32"/>
+  <object id="15" x="2736" y="176" width="448" height="32"/>
+  <object id="16" x="3376" y="176" width="464" height="32"/>
+ </objectgroup>
+ <objectgroup id="3" name="platforms">
+  <object id="18" x="64" y="144" width="32" height="16"/>
+  <object id="19" x="128" y="112" width="80" height="16"/>
+  <object id="20" x="240" y="80" width="32" height="16"/>
+  <object id="21" x="288" y="144" width="64" height="16"/>
+  <object id="22" x="352" y="112" width="32" height="16"/>
+  <object id="23" x="400" y="80" width="32" height="16"/>
+  <object id="24" x="464" y="64" width="64" height="16"/>
+  <object id="25" x="560" y="64" width="64" height="16"/>
+  <object id="26" x="656" y="128" width="32" height="16"/>
+  <object id="27" x="704" y="96" width="32" height="16"/>
+  <object id="28" x="768" y="112" width="32" height="16"/>
+  <object id="29" x="800" y="80" width="32" height="16"/>
+  <object id="30" x="848" y="144" width="80" height="16"/>
+  <object id="31" x="1248" y="144" width="32" height="16"/>
+  <object id="32" x="1296" y="112" width="32" height="16"/>
+  <object id="33" x="1360" y="112" width="80" height="16"/>
+  <object id="34" x="1472" y="96" width="32" height="16"/>
+  <object id="35" x="1536" y="128" width="32" height="16"/>
+  <object id="36" x="1616" y="128" width="32" height="16"/>
+  <object id="37" x="1888" y="112" width="32" height="16"/>
+  <object id="38" x="1952" y="144" width="32" height="16"/>
+  <object id="39" x="1952" y="64" width="32" height="16"/>
+  <object id="40" x="2032" y="96" width="80" height="16"/>
+  <object id="41" x="2144" y="96" width="32" height="16"/>
+  <object id="42" x="2192" y="128" width="32" height="16"/>
+  <object id="43" x="2256" y="96" width="80" height="16"/>
+  <object id="44" x="2368" y="80" width="32" height="16"/>
+  <object id="45" x="2416" y="48" width="32" height="16"/>
+  <object id="46" x="2464" y="80" width="80" height="16"/>
+  <object id="47" x="2576" y="112" width="32" height="16"/>
+  <object id="49" x="2656" y="128" width="80" height="16"/>
+  <object id="50" x="2816" y="80" width="32" height="16"/>
+  <object id="51" x="2896" y="64" width="32" height="16"/>
+  <object id="52" x="2976" y="96" width="32" height="16"/>
+  <object id="53" x="3056" y="128" width="32" height="16"/>
+  <object id="54" x="3152" y="96" width="80" height="16"/>
+  <object id="55" x="3264" y="80" width="32" height="16"/>
+  <object id="56" x="3328" y="144" width="32" height="16"/>
+ </objectgroup>
+ <objectgroup id="9" name="playerSpawn" visible="0">
+  <object id="17" x="11" y="176.5">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
