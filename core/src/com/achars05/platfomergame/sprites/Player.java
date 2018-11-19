@@ -5,6 +5,7 @@ import com.achars05.platfomergame.screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -28,6 +29,7 @@ public class Player extends Sprite {
     private Animation<TextureRegion> idle;
     private Animation<TextureRegion> run;
     private Animation<TextureRegion> jump;
+    private Animation<TextureRegion> fall;
 
     PlayScreen screen;
 
@@ -45,28 +47,28 @@ public class Player extends Sprite {
         for (int i = 0; i < 3; i++){
             frames.add(new TextureRegion(screen.getAltas().findRegion("player_idle"), i*50, 0, 50, 37));
         }
-        idle = new Animation<TextureRegion>(0.1f, frames);
+        idle = new Animation<TextureRegion>(0.25f, frames);
 
         frames.clear();
 
         for (int i = 0; i < 6; i++){
             frames.add(new TextureRegion(screen.getAltas().findRegion("player_run"), i*50, 0, 50, 37));
         }
-        run = new Animation<TextureRegion>(0.1f, frames);
+        run = new Animation<TextureRegion>(0.1f, frames, Animation.PlayMode.LOOP);
 
         frames.clear();
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 1; i < 3; i++){
             frames.add(new TextureRegion(screen.getAltas().findRegion("player_jump"), i*50, 0, 50, 37));
         }
-        jump = new Animation<TextureRegion>(0.1f, frames);
+        jump = new Animation<TextureRegion>(0.2f, frames, Animation.PlayMode.NORMAL);
 
         frames.clear();
 
         for (int i = 0; i < 1; i++){
             frames.add(new TextureRegion(screen.getAltas().findRegion("player_fall"), i*50, 0, 50, 37));
         }
-        jump = new Animation<TextureRegion>(0.1f, frames);
+        fall = new Animation<TextureRegion>(0.2f, frames, Animation.PlayMode.LOOP);
 
         frames.clear();
 
@@ -94,7 +96,7 @@ public class Player extends Sprite {
                 region = jump.getKeyFrame(stateTimer);
                 break;
             case FALLING:
-                region = idle.getKeyFrame(stateTimer);
+                region = fall.getKeyFrame(stateTimer);
                 break;
             case RUNNING:
                 region = run.getKeyFrame(stateTimer, true);
