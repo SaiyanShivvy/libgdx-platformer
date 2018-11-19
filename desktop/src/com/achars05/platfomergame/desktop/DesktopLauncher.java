@@ -10,6 +10,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new MainGame(), config);
+		config.height = 400;
+		config.width = 800;
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 	}
 }

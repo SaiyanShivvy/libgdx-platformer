@@ -14,8 +14,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+
+import sun.applet.Main;
 
 public class Player extends Sprite {
 
@@ -174,12 +177,20 @@ public class Player extends Sprite {
         fixtureDef.shape = cShape;
         b2body.createFixture(fixtureDef);
 
+
+//        EdgeShape head = new EdgeShape();
+//        head.set(new Vector2(-2 / MainGame.PPM, 6 / MainGame.PPM), new Vector2(2 / MainGame.PPM, 6 / MainGame.PPM));
+//        fixtureDef.shape = head;
+//        fixtureDef.isSensor = true;
+//        b2body.createFixture(fixtureDef).setUserData("head");
+
         // todo: add checking sensor for collison on attack frames.
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / MainGame.PPM, 6 / MainGame.PPM), new Vector2(2 / MainGame.PPM, 6 / MainGame.PPM));
-        fixtureDef.shape = head;
+        PolygonShape attackRange = new PolygonShape();
+        attackRange.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.05f), 0);
+        fixtureDef.shape = attackRange;
         fixtureDef.isSensor = true;
-        b2body.createFixture(fixtureDef).setUserData("head");
+        b2body.createFixture(fixtureDef).setUserData("attackRange");
+
     }
 
 }
