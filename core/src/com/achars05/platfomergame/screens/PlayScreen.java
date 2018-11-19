@@ -4,6 +4,7 @@ import com.achars05.platfomergame.MainGame;
 import com.achars05.platfomergame.sprites.Player;
 import com.achars05.platfomergame.ui.Hud;
 import com.achars05.platfomergame.utils.B2WorldCreator;
+import com.achars05.platfomergame.utils.WorldContactListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -75,6 +76,8 @@ public class PlayScreen implements Screen {
 
         // create player
         player = new Player (world, this);
+
+        world.setContactListener(new WorldContactListener());
     }
 
     @Override

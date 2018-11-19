@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="57">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="60">
  <tileset firstgid="1" name="jungle tileset" tilewidth="16" tileheight="16" tilecount="741" columns="39">
   <image source="jungle tileset.png" width="624" height="304"/>
  </tileset>
@@ -10,10 +10,10 @@
  </layer>
  <layer id="2" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmEkOwjAQBMcBxPYH+BIggeAlwEPZIc+AC1tzQ6wmMfYYuqS6WJYzPRPnEBFCCCGEEEIIIaHZGpGdCV0FcU0XM+3BPhyY9+skP/90l/4pax5s++Sjn5yZDp7NoYy1CqzCGqw7mpXvufM9y0fs/dNU/6s79arOb93Fb/JJ32PM94ysWXy9pxruw20NGuavoS+2xFQr+Zxfnu+jbNryhqjHxzdQW59d0ECeZoZMmv49cfb3xFZvLLCvhJCsTPDtmMIZnMMFXMIVXMMNTI3dvhbO64i789KrM30/N0Re5tDXl7alIeq77NvDAzzCE5RExMAEFmARlhK7fUMsj8XdeaWrM30/N0Re5tDXl5GlIeq77DsDaFVXAw==
+   eJztmE1OwkAYhmeKBMUVYQ+HcGM8hZJogA3HAC/gWdhwFlcqoPYErmEjytsd4Xco7cz30fdJngXNZPr9zEeb1qwhhCjkBt5yfglRSddwfgnRyhD2OL8kJ2Y4W3Oer9xI5vclQH0fcc8n2IYde/g6OZ0izVJRck3m95T3Z9c6+ahnUXomnV19qODaJbyCVXidUa98913SOdP4/iypfmmQFP++mdoXZ16zmCfH1F1Lfi7P37S5+DqnEuZhPQYJ/ZdQF1c0xSqJV6Pj+XvO/d2Wm7R8Q8Tj4z9QWp2P5cdufr9q4HczRU6Svj2x95toi1cLIetaj4wZsaeEqOQO8/uG+X2HH3AMJ3AKP+EX/IaxdVt3jz1bJrv94pU9fd83RL7MQ15dHhwNEV+y7hcu4B/8hwYzbWEES/ACliO3dX1cfjbZ7Vde2dP3fUPkyzzk1WXgaIj4knVLzZFgtw==
   </data>
  </layer>
- <objectgroup id="5" name="groundObject" visible="0">
+ <objectgroup id="5" name="groundObject">
   <object id="6" x="0" y="176" width="304" height="32"/>
   <object id="7" x="336" y="176" width="304" height="32"/>
   <object id="8" x="672" y="176" width="112" height="32"/>
@@ -64,9 +64,15 @@
   <object id="54" x="3152" y="96" width="80" height="16"/>
   <object id="55" x="3264" y="80" width="32" height="16"/>
   <object id="56" x="3328" y="144" width="32" height="16"/>
+  <object id="58" x="3824" y="0" width="16" height="128"/>
+  <object id="59" x="0" y="0" width="16" height="176"/>
  </objectgroup>
- <objectgroup id="9" name="playerSpawn" visible="0">
-  <object id="17" x="11" y="176.5">
+ <objectgroup id="11" name="coins"/>
+ <objectgroup id="10" name="levelExit">
+  <object id="57" x="3824" y="128" width="16" height="48"/>
+ </objectgroup>
+ <objectgroup id="9" name="playerSpawn">
+  <object id="17" x="31.3333" y="176.833">
    <point/>
   </object>
  </objectgroup>

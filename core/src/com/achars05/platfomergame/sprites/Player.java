@@ -2,20 +2,24 @@ package com.achars05.platfomergame.sprites;
 
 import com.achars05.platfomergame.MainGame;
 import com.achars05.platfomergame.screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
 
-    public enum State {FALLING, JUMPING, IDLE, RUNNING};
+    public enum State {FALLING, JUMPING, IDLE, RUNNING, ATTACKING};
     public State currentState;
     public State previousState;
 
@@ -30,6 +34,7 @@ public class Player extends Sprite {
     private Animation<TextureRegion> run;
     private Animation<TextureRegion> jump;
     private Animation<TextureRegion> fall;
+    private Animation<TextureRegion> attack;
 
     PlayScreen screen;
 
@@ -47,7 +52,7 @@ public class Player extends Sprite {
         for (int i = 0; i < 3; i++){
             frames.add(new TextureRegion(screen.getAltas().findRegion("player_idle"), i*50, 0, 50, 37));
         }
-        idle = new Animation<TextureRegion>(0.25f, frames);
+        idle = new Animation<TextureRegion>(0.3f, frames);
 
         frames.clear();
 
@@ -72,6 +77,13 @@ public class Player extends Sprite {
 
         frames.clear();
 
+        for (int i = 0; i < 16; i++){
+            frames.add(new TextureRegion(screen.getAltas().findRegion("player_attack"), i*52 , 0, 50, 37));
+        }
+        attack = new Animation<TextureRegion>(0.07f, frames);
+
+        frames.clear();
+
         // stand = new TextureRegion(getTexture(), super.getRegionX(), super.getRegionY(), 50,37);
 
         // define the player in box2d
@@ -92,6 +104,9 @@ public class Player extends Sprite {
         TextureRegion region;
 
         switch (currentState){
+            case ATTACKING:
+                region = attack.getKeyFrame(stateTimer, true);
+                break;
             case JUMPING:
                 region = jump.getKeyFrame(stateTimer);
                 break;
@@ -134,6 +149,9 @@ public class Player extends Sprite {
         else if (b2body.getLinearVelocity().x != 0){
             return State.RUNNING;
         }
+        else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            return State.ATTACKING;
+        }
         else
             return State.IDLE;
     }
@@ -154,8 +172,14 @@ public class Player extends Sprite {
         cShape.setRadius(8 / MainGame.PPM);
 
         fixtureDef.shape = cShape;
-
         b2body.createFixture(fixtureDef);
+
+        // todo: add checking sensor for collison on attack frames.
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / MainGame.PPM, 6 / MainGame.PPM), new Vector2(2 / MainGame.PPM, 6 / MainGame.PPM));
+        fixtureDef.shape = head;
+        fixtureDef.isSensor = true;
+        b2body.createFixture(fixtureDef).setUserData("head");
     }
 
 }
