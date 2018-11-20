@@ -2,6 +2,7 @@ package com.achars05.platfomergame.sprites;
 
 import com.achars05.platfomergame.MainGame;
 import com.achars05.platfomergame.screens.PlayScreen;
+import com.achars05.platfomergame.ui.Vpad;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -41,9 +42,9 @@ public class Player extends Sprite {
 
     PlayScreen screen;
 
-    public Player (World world, PlayScreen screen) {
+    public Player (PlayScreen screen) {
         this.screen = screen;
-        this.world = world;
+        this.world = screen.getWorld();
 
         currentState = State.IDLE;
         previousState = State.IDLE;
@@ -93,7 +94,7 @@ public class Player extends Sprite {
         definePlayer();
 
         // set initial values for location, etc.
-        setBounds(0,0, 33 / MainGame.PPM, 24 / MainGame.PPM);
+        setBounds(0,0, 33 / MainGame.PPM, 23 / MainGame.PPM);
         setRegion(idle.getKeyFrame(stateTimer, true));
     }
 
@@ -152,7 +153,7 @@ public class Player extends Sprite {
         else if (b2body.getLinearVelocity().x != 0){
             return State.RUNNING;
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        else if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || screen.getVpad().isPressAction()){
             return State.ATTACKING;
         }
         else
@@ -173,23 +174,23 @@ public class Player extends Sprite {
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape cShape = new CircleShape();
         cShape.setRadius(8 / MainGame.PPM);
-
+        fixtureDef.filter.categoryBits = MainGame.PLAYER_BIT;
+        fixtureDef.filter.maskBits = MainGame.GROUND_BIT | MainGame.PLATFORM_BIT | MainGame.OBJECT_BIT | MainGame.ENEMY_BIT;
         fixtureDef.shape = cShape;
         b2body.createFixture(fixtureDef);
 
-
-//        EdgeShape head = new EdgeShape();
-//        head.set(new Vector2(-2 / MainGame.PPM, 6 / MainGame.PPM), new Vector2(2 / MainGame.PPM, 6 / MainGame.PPM));
-//        fixtureDef.shape = head;
-//        fixtureDef.isSensor = true;
-//        b2body.createFixture(fixtureDef).setUserData("head");
-
         // todo: add checking sensor for collison on attack frames.
-        PolygonShape attackRange = new PolygonShape();
-        attackRange.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.05f), 0);
-        fixtureDef.shape = attackRange;
+        PolygonShape attackRangeFront = new PolygonShape();
+        attackRangeFront.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.05f), 0);
+        fixtureDef.shape = attackRangeFront;
         fixtureDef.isSensor = true;
-        b2body.createFixture(fixtureDef).setUserData("attackRange");
+        b2body.createFixture(fixtureDef).setUserData("attackRangeLeft");
+
+        PolygonShape attackRangeBack = new PolygonShape();
+        attackRangeBack.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(-0.1f, 0.05f), 0);
+        fixtureDef.shape = attackRangeBack;
+        fixtureDef.isSensor = true;
+        b2body.createFixture(fixtureDef).setUserData("attackRangeRight");
 
     }
 

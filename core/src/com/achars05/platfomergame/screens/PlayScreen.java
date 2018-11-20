@@ -2,7 +2,9 @@ package com.achars05.platfomergame.screens;
 
 import com.achars05.platfomergame.MainGame;
 import com.achars05.platfomergame.sprites.Player;
+import com.achars05.platfomergame.sprites.Skeleton;
 import com.achars05.platfomergame.ui.Hud;
+import com.achars05.platfomergame.ui.Vpad;
 import com.achars05.platfomergame.utils.B2WorldCreator;
 import com.achars05.platfomergame.utils.WorldContactListener;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +29,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
+    private Vpad vpad;
 
     // Sprites
     private TextureAtlas altas;
@@ -42,6 +45,7 @@ public class PlayScreen implements Screen {
 
     // player
     private Player player;
+    private Skeleton bones;
 
 
     public PlayScreen (MainGame game){
@@ -59,6 +63,10 @@ public class PlayScreen implements Screen {
         // HUD to display score, timer, etc
         hud = new Hud(game.batch);
 
+        // Touchpad
+        vpad = new Vpad(game.batch);
+
+
         // Load tmx map
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("maps/level1.tmx");
@@ -72,10 +80,11 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         // Create world
-        new B2WorldCreator(world, map);
+        new B2WorldCreator(this);
 
         // create player
-        player = new Player (world, this);
+        player = new Player (this);
+        bones = new Skeleton(this, 0.32f, 0.32f);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -89,17 +98,47 @@ public class PlayScreen implements Screen {
         return altas;
     }
 
+    public Vpad getVpad() {
+        return vpad;
+    }
+
     public void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            //player.b2body.applyLinearImpulse(0, 3f, 0, 0, true);
             player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+        else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+        else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
             player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
         }
+
+        // Virtual Controls
+        if ((vpad.isPressLeft()) && player.b2body.getLinearVelocity().x >= -2) {
+            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+        }
+        else if ((vpad.isPressRight()) && player.b2body.getLinearVelocity().x <= 2) {
+            player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+        }
+        else if (vpad.isPressJump() && player.b2body.getLinearVelocity().y == 0) {
+            player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
+        }
+
+        //        // touchpad
+//        if (vpad.touchpad.isTouched()){
+//            if ((vpad.touchpad.getKnobPercentX() > 0) && player.b2body.getLinearVelocity().x <= 2){ //right
+//                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+//            }
+//            else if ((vpad.touchpad.getKnobPercentX() < 0) && player.b2body.getLinearVelocity().x >= -2){ //left
+//                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+//            }
+//            else if (vpad.touchpad.getKnobPercentY() > 0){ //up
+//                player.b2body.applyLinearImpulse(new Vector2(0, 2f), player.b2body.getWorldCenter(), true);
+//            }
+//            else if (((vpad.touchpad.getKnobPercentY() > 0) && vpad.touchpad.getKnobPercentX() > 0) && player.b2body.getLinearVelocity().x <= 2) { //up right
+//                player.b2body.applyLinearImpulse(new Vector2(0.1f, 2f), player.b2body.getWorldCenter(), true);
+//            }
+//        }
     }
 
     public void update(float dt) {
@@ -109,9 +148,10 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
 
         player.update(dt);
+        bones.update(dt);
+        hud.update(dt);
 
         gameCam.position.x = player.b2body.getPosition().x;
-
         // update game camera
         gameCam.update();
         // tell renderer to draw only what the camera can see of the game world
@@ -136,17 +176,30 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        bones.draw(game.batch);
         game.batch.end();
 
         // Set batch to draw the HUD camera
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        game.batch.setProjectionMatrix(vpad.stage.getCamera().combined);
+        vpad.stage.draw();
+//        Gdx.app.log("TOUCHPAD: ",vpad.touchpad.getKnobPercentX() + " " + vpad.touchpad.getKnobPercentY());
     }
 
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
 
+    }
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     @Override

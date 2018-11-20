@@ -1,6 +1,7 @@
 package com.achars05.platfomergame.utils;
 
 import com.achars05.platfomergame.MainGame;
+import com.achars05.platfomergame.screens.PlayScreen;
 import com.achars05.platfomergame.sprites.Coin;
 import com.achars05.platfomergame.sprites.Platforms;
 import com.badlogic.gdx.maps.MapObject;
@@ -15,7 +16,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class B2WorldCreator {
 
-    public B2WorldCreator (World world, TiledMap map) {
+    public B2WorldCreator (PlayScreen screen) {
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
         BodyDef bodyDef = new BodyDef();
         PolygonShape pShape = new PolygonShape();
         FixtureDef fixtureDef = new FixtureDef();
@@ -38,13 +41,13 @@ public class B2WorldCreator {
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Platforms(world, map, rect);
+            new Platforms(screen, rect);
         }
         // create coins body/fixture
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Coin(world, map, rect);
+            new Coin(screen, rect);
         }
 
     }
