@@ -22,14 +22,17 @@ public class WorldContactListener implements ContactListener {
 
         switch (cDef){
             case MainGame.PLAYER_BIT | MainGame.PIT_OBJECT_BIT:
-                if (fixA.getFilterData().categoryBits == MainGame.PLAYER_BIT)
+                if (fixA.getFilterData().maskBits == fixB.getFilterData().categoryBits)
                 {
                     Gdx.app.log("PITFALL", "You have fallen");
+                }
+                else {
+                    Gdx.app.log("PITFALL", "You have fallena");
                 }
                 break;
 
             case MainGame.PLAYER_BIT | MainGame.EXIT_BIT:
-                if (fixA.getFilterData().categoryBits == MainGame.PLAYER_BIT){
+                if (fixA.getUserData().equals(Player.class)) {
                     Gdx.app.log("Exit", "End Level");
                 }
         }

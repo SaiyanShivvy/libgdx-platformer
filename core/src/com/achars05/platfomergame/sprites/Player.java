@@ -195,7 +195,5 @@ public class Player extends Sprite {
         fixtureDef.filter.categoryBits = MainGame.PLAYER_HITBOX_BIT;
         fixtureDef.filter.maskBits = MainGame.ENEMY_HITBOX_BIT;
         b2body.createFixture(fixtureDef).setUserData("hitLeft");
-
     }
-
 }

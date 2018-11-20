@@ -34,11 +34,14 @@ public class Pits {
         bodyDef.position.set((bounds.getX() + bounds.getWidth() / 2) / MainGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / MainGame.PPM);
         body = world.createBody(bodyDef);
 
-        pShape.setAsBox(bounds.getWidth(),bounds.getHeight());
+        pShape.setAsBox((bounds.getWidth() / 2) / MainGame.PPM,(bounds.getHeight() / 2) / MainGame.PPM);
+        fixtureDef.shape = pShape;
+        fixture = body.createFixture(fixtureDef);
+
         fixtureDef.shape = pShape;
         fixtureDef.isSensor = true;
         fixtureDef.filter.categoryBits = MainGame.PIT_OBJECT_BIT;
-        fixtureDef.filter.maskBits = MainGame.ENEMY_BIT | MainGame.PLAYER_BIT;
+        //fixtureDef.filter.maskBits = MainGame.ENEMY_BIT | MainGame.PLAYER_BIT;
         fixture = body.createFixture(fixtureDef);
 
         pShape.dispose();

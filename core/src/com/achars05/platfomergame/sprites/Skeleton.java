@@ -110,13 +110,6 @@ public class Skeleton extends Enemy{
 
         // Contact Listener
         PolygonShape hitbox = new PolygonShape();
-//        Vector2[] vertice = new Vector2[4];
-//        vertice[0] = new Vector2(-5,8).scl(1 / MainGame.PPM);
-//        vertice[1] = new Vector2(5,8).scl(1 / MainGame.PPM);
-//        vertice[2] = new Vector2(-3,3).scl(1 / MainGame.PPM);
-//        vertice[3] = new Vector2(5,3).scl(1 / MainGame.PPM);
-//        hitbox.set(vertice);
-//
         hitbox.setAsBox(8.5f / MainGame.PPM, 8.5f / MainGame.PPM, new Vector2(0, 0), 0);
         fixtureDef.shape = hitbox;
         fixtureDef.isSensor = true;

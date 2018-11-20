@@ -1,0 +1,40 @@
+package com.achars05.platfomergame.ui;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.utils.Disposable;
+
+public class Controller implements Disposable {
+    Stage stage;
+    Touchpad touchpad;
+
+    public Controller() {
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        touchpad = new Touchpad(20, skin);
+        touchpad.setBounds(15, 15, 100, 100);
+        stage.addActor(touchpad);
+    }
+
+    public void render () {
+        Gdx.app.log("TOUCHPAD: ",touchpad.getKnobPercentX() + " " + touchpad.getKnobPercentY());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+    }
+
+    public void resize (int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    public void dispose () {
+        stage.dispose();
+    }
+}
