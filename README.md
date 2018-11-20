@@ -1,7 +1,10 @@
 # libgdx-platformer
 A platformer game using LIBGDX and Android Studio.
 
-Todo: 
+## Author
+Shivneel Achari
+
+### Todo: 
 - [ ] Game Screen linked with Game states (e.g. Loading, Game, Level Select, Victory Screens)
 - [ ] Collisions:
     - [ ] Player and Enemy
