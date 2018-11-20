@@ -84,7 +84,7 @@ public class PlayScreen implements Screen {
 
         // create player
         player = new Player (this);
-        bones = new Skeleton(this, 0.32f, 0.32f);
+        bones = new Skeleton(this, 0.70f, 0.75f);
 
         world.setContactListener(new WorldContactListener());
     }

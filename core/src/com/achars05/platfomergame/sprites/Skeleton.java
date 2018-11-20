@@ -6,9 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 
 public class Skeleton extends Enemy{
@@ -26,6 +28,8 @@ public class Skeleton extends Enemy{
     Array<TextureRegion> frames;
 
     boolean isRightFacing;
+    private boolean setToDestroy;
+    private boolean destroyed;
 
     public Skeleton(PlayScreen screen, float x, float y) {
         super(screen, x, y);
@@ -72,16 +76,27 @@ public class Skeleton extends Enemy{
 
     public void update(float dt){
         stateTime += dt;
-        setPosition(b2body.getPosition().x - getWidth() / 2.5f, b2body.getPosition().y - getHeight() / 2.5f);
-        setRegion(idle.getKeyFrame(stateTime, true));
-//        setRegion(getFrame(dt));
+
+        //setRegion(idle.getKeyFrame(stateTime, true));
+        if(setToDestroy && !destroyed){
+            world.destroyBody(b2body);
+            destroyed = true;
+            currentState = State.DIE;
+            setRegion(getFrame(dt));
+            stateTime = 0;
+        }
+        else if(!destroyed) {
+            b2body.setLinearVelocity(velocity);
+            setPosition(b2body.getPosition().x - getWidth() / 2.5f, b2body.getPosition().y - getHeight() / 2.5f);
+            setRegion(getFrame(dt));
+        }
     }
 
     @Override
     protected void defineEnemy() {
         BodyDef bodyDef = new BodyDef();
         // todo: temp position, update using defined spawn location on map
-        bodyDef.position.set(32 / MainGame.PPM, 32 / MainGame.PPM);
+        bodyDef.position.set(getX(), getY());
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bodyDef);
 
@@ -91,6 +106,24 @@ public class Skeleton extends Enemy{
         fixtureDef.filter.categoryBits = MainGame.ENEMY_BIT;
         fixtureDef.filter.maskBits = MainGame.GROUND_BIT | MainGame.PLATFORM_BIT | MainGame.ENEMY_BIT | MainGame.OBJECT_BIT | MainGame.PLAYER_BIT;
         fixtureDef.shape = cShape;
+        b2body.createFixture(fixtureDef);
+
+        // Contact Listener
+        PolygonShape hitbox = new PolygonShape();
+//        Vector2[] vertice = new Vector2[4];
+//        vertice[0] = new Vector2(-5,8).scl(1 / MainGame.PPM);
+//        vertice[1] = new Vector2(5,8).scl(1 / MainGame.PPM);
+//        vertice[2] = new Vector2(-3,3).scl(1 / MainGame.PPM);
+//        vertice[3] = new Vector2(5,3).scl(1 / MainGame.PPM);
+//        hitbox.set(vertice);
+//
+        hitbox.setAsBox(8.5f / MainGame.PPM, 8.5f / MainGame.PPM, new Vector2(0, 0), 0);
+        fixtureDef.shape = hitbox;
+        fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = MainGame.ENEMY_HITBOX_BIT;
+        b2body.createFixture(fixtureDef).setUserData(this);
+        fixtureDef.shape = hitbox;
+        fixtureDef.isSensor = true;
         b2body.createFixture(fixtureDef);
     }
 
@@ -135,9 +168,9 @@ public class Skeleton extends Enemy{
     }
 
     public State getState(){
-        if (previousState == State.IDLE){
-            return State.WALK;
-        }
+//        if (){
+//            return State.WALK;
+//        }
 //        else if (){ // if the play is within its attack range sensor
 //            return State.ATTACK;
 //        }
@@ -147,11 +180,17 @@ public class Skeleton extends Enemy{
 //        else if (){ // if health 0, need to implement health
 //            return State.DIE;
 //        }
-        else
+//        else
             return State.IDLE;
     }
 
     public float getStateTime(){
         return stateTime;
     }
+
+    @Override
+    public void killed(Player player) {
+        setToDestroy = true;
+    }
+
 }

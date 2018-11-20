@@ -177,20 +177,24 @@ public class Player extends Sprite {
         fixtureDef.filter.categoryBits = MainGame.PLAYER_BIT;
         fixtureDef.filter.maskBits = MainGame.GROUND_BIT | MainGame.PLATFORM_BIT | MainGame.OBJECT_BIT | MainGame.ENEMY_BIT;
         fixtureDef.shape = cShape;
-        b2body.createFixture(fixtureDef);
+        b2body.createFixture(fixtureDef).setUserData(this);
 
         // todo: add checking sensor for collison on attack frames.
-        PolygonShape attackRangeFront = new PolygonShape();
-        attackRangeFront.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.05f), 0);
-        fixtureDef.shape = attackRangeFront;
+        PolygonShape attackRangeRight = new PolygonShape();
+        attackRangeRight.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.04f), 0);
+        fixtureDef.shape = attackRangeRight;
         fixtureDef.isSensor = true;
-        b2body.createFixture(fixtureDef).setUserData("attackRangeLeft");
+        fixtureDef.filter.categoryBits = MainGame.PLAYER_HITBOX_BIT;
+        fixtureDef.filter.maskBits = MainGame.ENEMY_HITBOX_BIT;
+        b2body.createFixture(fixtureDef).setUserData("hitRight");
 
         PolygonShape attackRangeBack = new PolygonShape();
-        attackRangeBack.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(-0.1f, 0.05f), 0);
+        attackRangeBack.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(-0.1f, 0.04f), 0);
         fixtureDef.shape = attackRangeBack;
         fixtureDef.isSensor = true;
-        b2body.createFixture(fixtureDef).setUserData("attackRangeRight");
+        fixtureDef.filter.categoryBits = MainGame.PLAYER_HITBOX_BIT;
+        fixtureDef.filter.maskBits = MainGame.ENEMY_HITBOX_BIT;
+        b2body.createFixture(fixtureDef).setUserData("hitLeft");
 
     }
 
