@@ -1,4 +1,4 @@
-package com.achars05.platfomergame.sprites;
+package com.achars05.platfomergame.sprites.WorldObjects;
 
 import com.achars05.platfomergame.MainGame;
 import com.achars05.platfomergame.screens.PlayScreen;
@@ -12,7 +12,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public abstract class InteractiveTileObject {
+public class GameExits {
+
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -20,7 +21,7 @@ public abstract class InteractiveTileObject {
     protected Body body;
     protected Fixture fixture;
 
-    public InteractiveTileObject (PlayScreen screen, Rectangle bounds) {
+    public GameExits (PlayScreen screen, Rectangle bounds) {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;
@@ -35,6 +36,9 @@ public abstract class InteractiveTileObject {
 
         pShape.setAsBox((bounds.getWidth() / 2) / MainGame.PPM,(bounds.getHeight() / 2) / MainGame.PPM);
         fixtureDef.shape = pShape;
+        fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = MainGame.EXIT_BIT;
+        fixtureDef.filter.maskBits = MainGame.PLAYER_BIT;
         fixture = body.createFixture(fixtureDef);
 
         pShape.dispose();

@@ -20,7 +20,9 @@ public class MainGame extends Game {
 	public static final short OBJECT_BIT = 1 << 3; // 0000 0000 1000
 	public static final short ENEMY_BIT = 1 << 4; // 0000 0001 0000
 	public static final short ENEMY_HITBOX_BIT = 1 << 5; // 0000 0010 0000
-	public static final short PLAYER_HITBOX_BIT = 1 << 6; // 0000 0010 0000
+	public static final short PLAYER_HITBOX_BIT = 1 << 6; // 0000 0100 0000
+	public static final short PIT_OBJECT_BIT = 1 << 7; // 0000 1000 0000
+	public static final short EXIT_BIT = 1 << 8; // 0001 0000 0000
 
 
     public SpriteBatch batch;
