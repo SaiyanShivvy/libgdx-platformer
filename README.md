@@ -4,7 +4,10 @@ A platformer game using LIBGDX and Android Studio.
 ## Author
 Shivneel Achari
 
-### Todo: 
+### Update
+Project will not be recieving any further updating as it was only for an assignment and do not wish to continue working on it.
+
+### Todo
 - [ ] Game Screen linked with Game states (e.g. Loading, Game, Level Select, Victory Screens)
 - [ ] Collisions:
     - [ ] Player and Enemy
