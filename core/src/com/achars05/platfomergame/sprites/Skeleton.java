@@ -174,12 +174,13 @@ public class Skeleton extends Enemy{
 //            return State.DIE;
 //        }
 //        else
+        //if ()
             return State.IDLE;
     }
 
-    public float getStateTime(){
-        return stateTime;
-    }
+    //public float getStateTime(){
+       //return stateTime;
+    //}
 
     @Override
     public void killed(Player player) {

@@ -179,7 +179,7 @@ public class Player extends Sprite {
         fixtureDef.shape = cShape;
         b2body.createFixture(fixtureDef).setUserData(this);
 
-        // todo: add checking sensor for collison on attack frames.
+        // todo: add checking sensor for collision on attack frames.
         PolygonShape attackRangeRight = new PolygonShape();
         attackRangeRight.setAsBox(7 / MainGame.PPM, 13 / MainGame.PPM, new Vector2(0.1f, 0.04f), 0);
         fixtureDef.shape = attackRangeRight;
