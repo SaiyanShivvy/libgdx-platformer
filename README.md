@@ -1,22 +1,26 @@
-# libgdx-platformer
-A platformer game using LIBGDX and Android Studio.
+# LIBGDX Platformer
+
+Project for Mobile Software Development Course at Unitec in 2018.
+I tried to create a simple platformer game using libGDX that could be run on android.
+Unfortunately, the project was unable to be completed fully prior to deadline of the assignment and no further changes are likely to be made.
+
+## Technologies
+
+- libGDX 1.9.8
+- Java
+
+## Install
+
+This project was created using [Android Studio](https://developer.android.com/studio) and [libGDX](https://libgdx.badlogicgames.com/).
+So, I guess that would reccomened to have them to run this project.
+
+## Usage
+
+
+## Badge
+
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 ## Author
-Shivneel Achari
 
-### Update
-Project will not be recieving any further updating as it was only for an assignment and do not wish to continue working on it.
-
-### Todo//Scraped
-- [ ] Game Screen linked with Game states (e.g. Loading, Game, Level Select, Victory Screens)
-- [ ] Collisions:
-    - [ ] Player and Enemy
-      - [ ] Attacking (recieving or initiating)
-    - [ ] Player and Pits
-    - [ ] Player and Exit
-    - [ ] Pits, other Game Objects and Enemies
-    - [ ] Enemies and Enemies. 
-    - [ ] Player and Objects. 
-- [ ] Improving Animations
-- [ ] More Maps, and Levels. 
-- [ ] Death. 
+[Shivneel Achari](https://github.com/SaiyanShivvy)
