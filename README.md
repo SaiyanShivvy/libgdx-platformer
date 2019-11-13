@@ -2,6 +2,8 @@
 
 Project for Mobile Software Development Course at Unitec in 2018.
 I tried to create a simple platformer game using libGDX that could be run on android.
+
+## Project Status
 Unfortunately, the project was unable to be completed fully prior to deadline of the assignment and no further changes are likely to be made.
 
 ## Technologies
@@ -27,7 +29,7 @@ So, I guess that would reccomened to have them to run this project.
 
 Desktop Launcher doesn't work because it's running an older version of Gradle and is now deprecated.
 Android Launcher still seems to work.
-There are still bugs and doesn't completely work but is runnable and they probably won't be fixed.
+There are still bugs and doesn't completely work but is runnable.
 
 ## Author
 
