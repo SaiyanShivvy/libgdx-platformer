@@ -16,10 +16,10 @@ So, I guess that would reccomened to have them to run this project.
 
 ## Usage
 
-
-## Badge
-
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+- Download and Extract this Project. 
+- Open Android Studio and Select the Project from the downloaded location. The folder itself should be recognized by Android Studio.
+- Let the Android Studio build the project (may take a while).
+- Click 'Run android' from 'Run' menu.
 
 ## Author
 
