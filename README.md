@@ -6,6 +6,8 @@ Unfortunately, the project was unable to be completed fully prior to deadline of
 
 ## Technologies
 
+The Project was made using:
+
 - libGDX 1.9.8
 - Java
 
