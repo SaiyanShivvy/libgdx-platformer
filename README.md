@@ -25,6 +25,7 @@ So, I guess that would reccomened to have them to run this project.
 - Let the Android Studio build the project (may take a while).
 - Click 'Run android' from 'Run' menu.
 
+> Preview
 ![Preview](preview.gif)
 
 ## Notes
