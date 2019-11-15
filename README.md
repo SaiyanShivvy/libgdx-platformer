@@ -25,6 +25,8 @@ So, I guess that would reccomened to have them to run this project.
 - Let the Android Studio build the project (may take a while).
 - Click 'Run android' from 'Run' menu.
 
+![Preview](preview.gif)
+
 ## Notes
 
 Desktop Launcher doesn't work because it's running an older version of Gradle and is now deprecated.
